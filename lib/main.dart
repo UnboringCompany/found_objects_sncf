@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'widgets/search_button.dart';
+import 'search.dart';
 import 'package:myapp/widgets/FoundObject.dart';
 import 'package:provider/provider.dart';
 import 'providers/ObjectProvider.dart';
@@ -11,43 +13,99 @@ void main() {
       child: MyApp(),
     ),
   );
-}
+
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'SNCF FoundIt',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(title: Text('Found Objects')),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  Map<String, String> filters = {
-                    'station_name': 'Montparnasse',
-                    'date_min': '2024-09-05T00:00:00Z',
-                    'date_max': '2024-09-09T23:59:59Z',
-                  };
-                  List<FoundObject> objects = await Provider.of<ObjectsProvider>(context, listen: false).fetchObjectsWithFilters(filters);
-                  Provider.of<ObjectsProvider>(context, listen: false).setObjects(objects);
-                },
+      home: HomePage(),
+    );
+  }
+}
 
-                child: const Text('Fetch and write objects to JSON file'),
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color(0xFF0B1320), // Couleur de fond
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'Bonjour 👋',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              const SizedBox(height: 20),
+              
+              // Titre principal
+              const Text(
+                'Retrouvez vos objets perdus selon la date, la gare, le type de l\'objet...',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
               const SizedBox(height: 16),
-              Consumer<ObjectsProvider>(
-                builder: (context, provider, child) {
-                  if (provider.objects.isEmpty) {
-                    return const Text('No objects found');
-                  } else {
-                    final lastObject = provider.objects.last;
-                    final sizeObject = provider.objects.length;
-                    return Text('Last object: ${lastObject.nature} - ${lastObject.type}, size_batch: $sizeObject');
-                  }
+              
+              // Barre de recherche
+              SearchButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchPage(),
+                    ),
+                  );
                 },
+              ),
+
+              const SizedBox(height: 24),
+              
+              // Section "Les derniers trouvés"
+              const Text(
+                'Les derniers trouvés',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16),
+              
+              // GridView des objets trouvés
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 2, // Responsive columns
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: 0.75,
+                  ),
+                  itemCount: 6, // Nombre d'objets fictifs
+                  itemBuilder: (context, index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFF1C2536),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    );
+                  },
+                ),
+
               ),
             ],
           ),
