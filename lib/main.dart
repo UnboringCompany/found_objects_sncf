@@ -44,7 +44,8 @@ class MyApp extends StatelessWidget {
                     return const Text('No objects found');
                   } else {
                     final lastObject = provider.objects.last;
-                    return Text('Last object: ${lastObject.nature}');
+                    final sizeObject = provider.objects.length;
+                    return Text('Last object: ${lastObject.nature} - ${lastObject.type}, size_batch: $sizeObject');
                   }
                 },
               ),

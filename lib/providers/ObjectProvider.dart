@@ -18,7 +18,7 @@ class ObjectsProvider with ChangeNotifier {
   }
 
   Future<List<FoundObject>> fetchObjectsWithFilters(Map<String, String> filters) async {
-    _objects = await ApiService().fetchObjectsWithFilters(filters);
+    _objects = await ApiService().fetchObjectsWithFilters();
     notifyListeners();
     return _objects;
   }
