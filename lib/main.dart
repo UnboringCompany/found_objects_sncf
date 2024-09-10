@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'widgets/search_button.dart';
 import 'search.dart';
+import 'package:myapp/widgets/FoundObject.dart';
+import 'package:provider/provider.dart';
+import 'providers/ObjectProvider.dart';
+
 
 void main() {
-  runApp(MyApp());
-}
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => ObjectsProvider(),
+      child: MyApp(),
+    ),
+  );
+
 
 class MyApp extends StatelessWidget {
   @override
@@ -96,6 +105,7 @@ class HomePage extends StatelessWidget {
                     );
                   },
                 ),
+
               ),
             ],
           ),
