@@ -50,10 +50,11 @@ class ApiService {
       if (data.isEmpty) {
         return []; // return an empty list if no objects are found
       } else {
-        return data.map((json) => FoundObject.fromJson(json['fields'])).toList();
+        return data.where((json) => json['fields']['gc_obo_date_heure_restitution_c'] == null).map((json) => FoundObject.fromJson(json['fields'])).toList();
       }
     } else {
       throw Exception('Failed to load objects');
     }
   }
+
 }
