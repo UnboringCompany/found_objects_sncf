@@ -18,6 +18,7 @@ void main() {
           child: MyApp(),
         ),
     ));
+
 }
 
 class MyApp extends StatelessWidget {
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final objectsProvider = Provider.of<ObjectsProvider>(context);
+    final List<FoundObject> objects = objectsProvider.objects;
+
     return Scaffold(
       backgroundColor: Color(0xFF0B1320), // Couleur de fond
       body: SafeArea(
@@ -60,7 +64,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-              
+
               // Titre principal
               const Text(
                 'Retrouvez vos objets perdus selon la date, la gare, le type de l\'objet...',
@@ -71,7 +75,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              
+
               // Barre de recherche
               SearchButton(
                 onPressed: () {
@@ -85,7 +89,7 @@ class HomePage extends StatelessWidget {
               ),
 
               const SizedBox(height: 24),
-              
+
               // Section "Les derniers trouvés"
               const Text(
                 'Les derniers trouvés',
@@ -96,7 +100,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              
+
               // GridView des objets trouvés
               Expanded(
                 child: GridView.builder(
@@ -106,17 +110,25 @@ class HomePage extends StatelessWidget {
                     mainAxisSpacing: 16,
                     childAspectRatio: 0.75,
                   ),
-                  itemCount: 6, // Nombre d'objets fictifs
+                  itemCount: objects.length,
                   itemBuilder: (context, index) {
+                    final object = objects[index];
                     return Container(
                       decoration: BoxDecoration(
                         color: Color(0xFF1C2536),
                         borderRadius: BorderRadius.circular(12),
                       ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(object.nature),
+                          Text(object.station_name),
+                          Text(object.date.toString()),
+                        ],
+                      ),
                     );
                   },
                 ),
-
               ),
             ],
           ),
