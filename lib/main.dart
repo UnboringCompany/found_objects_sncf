@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myapp/widgets/FoundObject.dart';
 import 'widgets/search_button.dart';
 import 'search.dart';
 import 'package:provider/provider.dart';
 import 'providers/ObjectProvider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-
-
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
