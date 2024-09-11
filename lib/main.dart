@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myapp/providers/StationProvider.dart';
 import 'package:myapp/widgets/FoundObject.dart';
 import 'widgets/search_button.dart';
 import 'search.dart';
@@ -12,8 +13,11 @@ void main() {
 
    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(
-        ChangeNotifierProvider(
-          create: (context) => ObjectsProvider(),
+        MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => StationProvider()),
+            ChangeNotifierProvider(create: (_) => ObjectsProvider()),
+          ],
           child: MyApp(),
         ),
     ));

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/models/Station.dart';
+import 'package:provider/provider.dart';
 import 'widgets/date_picker_row.dart';
+import 'providers/StationProvider.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -33,18 +36,12 @@ class _SearchPageState extends State<SearchPage> {
     "Vélos, trottinettes, accessoires 2 roues",
     "Vêtements, chaussures"
   ];
-  final List<String> _allGares = [
-    'Gare 1',
-    'Gare 2',
-    'Gare 3',
-    'Gare 4',
-    'Gare 5',
-    // Ajoutez d'autres gares ici
-  ];
 
   @override
   void initState() {
     super.initState();
+    final stationProvider = Provider.of<StationProvider>(context, listen: false);
+    stationProvider.fetchObjects();
     _typeController.addListener(_onTypeChanged);
     _gareController.addListener(_onGareChanged);
     _typeFocusNode.addListener(_onTypeFocusChanged);
@@ -73,8 +70,10 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _onGareChanged() {
+    final stationProvider = Provider.of<StationProvider>(context, listen: false);
+    final stations = stationProvider.getStationNames();
     setState(() {
-      _gareResults = _allGares
+      _gareResults = stations
           .where((gare) => gare.toLowerCase().contains(_gareController.text.toLowerCase()))
           .toList();
     });

@@ -26,7 +26,7 @@ class ApiService {
     String? objectType,
     DateTime? startDate,
     DateTime? endDate,
-    int limit = 20,
+    int limit = -1,
   }) async {
     String queryParams = '&rows=$limit';
     if (stationName != null) {
