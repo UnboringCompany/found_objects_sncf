@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'widgets/search_button.dart';
 import 'search.dart';
 import 'package:provider/provider.dart';
@@ -8,14 +9,16 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (context) => ObjectsProvider(),
-      child: MyApp(),
-    ),
-  );
-}
+  WidgetsFlutterBinding.ensureInitialized();
 
+   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(
+        ChangeNotifierProvider(
+          create: (context) => ObjectsProvider(),
+          child: MyApp(),
+        ),
+    ));
+}
 
 class MyApp extends StatelessWidget {
   @override
