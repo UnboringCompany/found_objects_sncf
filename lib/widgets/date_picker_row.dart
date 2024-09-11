@@ -15,6 +15,7 @@ class _DatePickerRowState extends State<DatePickerRow> {
   Future<void> _selectDate(BuildContext context, TextEditingController controller) async {
     final DateTime? picked = await showDatePicker(
           context: context,
+          locale: const Locale("fr", "FR"),
           initialDate: DateTime.now(),
           firstDate: DateTime(2019),
           lastDate: DateTime.now(),

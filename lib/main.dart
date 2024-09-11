@@ -3,6 +3,8 @@ import 'widgets/search_button.dart';
 import 'search.dart';
 import 'package:provider/provider.dart';
 import 'providers/ObjectProvider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 
 void main() {
@@ -25,6 +27,12 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home: HomePage(),
+      localizationsDelegates: const [
+         GlobalMaterialLocalizations.delegate
+       ],
+       supportedLocales: const [
+         Locale('fr'),
+       ],
     );
   }
 }
