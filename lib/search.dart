@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/providers/ObjectProvider.dart';
+import 'package:myapp/widgets/search_result_page.dart';
+import 'package:provider/provider.dart';
+import 'widgets/FoundObject.dart';
 import 'widgets/date_picker_row.dart';
 
 class SearchPage extends StatefulWidget {
@@ -41,6 +45,9 @@ class _SearchPageState extends State<SearchPage> {
     'Gare 5',
     // Ajoutez d'autres gares ici
   ];
+  DateTime? _startDate;
+  DateTime? _endDate;
+  String _searchResults = '';
 
   @override
   void initState() {
@@ -67,7 +74,8 @@ class _SearchPageState extends State<SearchPage> {
   void _onTypeChanged() {
     setState(() {
       _typeResults = _allTypes
-          .where((type) => type.toLowerCase().contains(_typeController.text.toLowerCase()))
+          .where((type) =>
+              type.toLowerCase().contains(_typeController.text.toLowerCase()))
           .toList();
     });
   }
@@ -75,7 +83,8 @@ class _SearchPageState extends State<SearchPage> {
   void _onGareChanged() {
     setState(() {
       _gareResults = _allGares
-          .where((gare) => gare.toLowerCase().contains(_gareController.text.toLowerCase()))
+          .where((gare) =>
+              gare.toLowerCase().contains(_gareController.text.toLowerCase()))
           .toList();
     });
   }
@@ -110,6 +119,18 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
+  void _onStartDateChanged(DateTime? date) {
+    setState(() {
+      _startDate = date;
+    });
+  }
+
+  void _onEndDateChanged(DateTime? date) {
+    setState(() {
+      _endDate = date;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,9 +146,11 @@ class _SearchPageState extends State<SearchPage> {
                     radius: 20,
                     backgroundColor: const Color(0xFFF3F3F3),
                     child: IconButton(
-                      icon: const Icon(Icons.arrow_back, color: Color(0xFF0B1320), size: 20),
+                      icon: const Icon(Icons.arrow_back,
+                          color: Color(0xFF0B1320), size: 20),
                       onPressed: () {
-                        Navigator.pop(context); // Retourner à la page précédente
+                        Navigator.pop(
+                            context); // Retourner à la page précédente
                       },
                     ),
                   ),
@@ -148,11 +171,17 @@ class _SearchPageState extends State<SearchPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: const BoxDecoration(
                   color: Color(0xFF2C343A),
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8)),
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(8),
+                      topRight: Radius.circular(8)),
                 ),
                 child: Row(
                   children: [
-                    const Text('Gare :', style: TextStyle(color: Color(0xFF656A6E), fontWeight: FontWeight.w500, fontSize: 16)),
+                    const Text('Gare :',
+                        style: TextStyle(
+                            color: Color(0xFF656A6E),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16)),
                     const SizedBox(width: 8),
                     Expanded(
                       child: TextField(
@@ -177,11 +206,17 @@ class _SearchPageState extends State<SearchPage> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: const BoxDecoration(
                   color: Color(0xFF2C343A),
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8)),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(8),
+                      bottomRight: Radius.circular(8)),
                 ),
                 child: Row(
                   children: [
-                    const Text('Type :', style: TextStyle(color: Color(0xFF656A6E), fontWeight: FontWeight.w500, fontSize: 16)),
+                    const Text('Type :',
+                        style: TextStyle(
+                            color: Color(0xFF656A6E),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16)),
                     const SizedBox(width: 8),
                     Expanded(
                       child: TextField(
@@ -202,17 +237,41 @@ class _SearchPageState extends State<SearchPage> {
               const SizedBox(height: 10),
 
               // Date selectors
-              const DatePickerRow(),
+              DatePickerRow(
+                onStartDateChanged: _onStartDateChanged,
+                onEndDateChanged: _onEndDateChanged,
+              ),
               const SizedBox(height: 20),
 
               // Bouton de validation de recherche
               ElevatedButton(
-                onPressed: () {
-                  // Action lors du clic sur le bouton
-                },
+                onPressed: () async {
+                  Map<String, String> filters = {
+                    if (_gareController.text.isNotEmpty) 'station_name': _gareController.text,
+                    if (_typeController.text.isNotEmpty) 'type': _typeController.text,
+                    if ( _startDate != null) 'date_min': _startDate!.toIso8601String(),
+                    if (_endDate != null) 'date_max': _endDate!.toIso8601String(),
+                  };
+                  List<FoundObject> objects = await Provider.of<ObjectsProvider>(context, listen: false).fetchObjectsWithFilters(
+                    filters,
+                  );
+                  Provider.of<ObjectsProvider>(context, listen: false).setObjects(objects);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SearchResultsPage(objects: objects.take(10).toList()),
+                    ),
+                  );
+                  setState(() {
+                    _searchResults = objects.isNotEmpty
+                        ? objects.map((object) => object.toString()).join('\n')
+                        : 'Aucun objet trouvé';
+                  });
+                },                 
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF8EE9FE),
-                  minimumSize: const Size(double.infinity, 50), // Largeur max du bouton
+                  minimumSize:
+                      const Size(double.infinity, 50), // Largeur max du bouton
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -227,6 +286,17 @@ class _SearchPageState extends State<SearchPage> {
                 ),
               ),
               const SizedBox(height: 40),
+
+              // Display search results
+              if (_searchResults.isNotEmpty)
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Text(
+                      _searchResults,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
 
               // Afficher les résultats de la recherche ou le message par défaut
               if (_typeResults.isNotEmpty && _typeFocusNode.hasFocus)

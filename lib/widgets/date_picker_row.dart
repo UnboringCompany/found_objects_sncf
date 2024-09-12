@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DatePickerRow extends StatefulWidget {
-  const DatePickerRow({super.key});
+  const DatePickerRow({super.key, required void Function(DateTime? date) onStartDateChanged, required void Function(DateTime? date) onEndDateChanged});
 
   @override
   // ignore: library_private_types_in_public_api
