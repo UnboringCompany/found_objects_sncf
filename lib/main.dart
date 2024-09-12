@@ -6,7 +6,6 @@ import 'search.dart';
 import 'package:provider/provider.dart';
 import 'providers/ObjectProvider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'widgets/FoundObject.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
