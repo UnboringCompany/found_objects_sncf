@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/providers/ObjectProvider.dart';
-import 'package:myapp/widgets/search_result_page.dart';
 import 'package:provider/provider.dart';
 import 'widgets/FoundObject.dart';
 import 'widgets/date_picker_row.dart';
