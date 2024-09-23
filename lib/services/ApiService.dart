@@ -67,8 +67,6 @@ class ApiService {
   DateTime? endDate,
   int limit = -1, 
 }) async {
-  print("Type d'objet :");
-  print(typeObject);
 
   // Check that the start date is before the end date
   if (startDate != null && endDate != null && startDate.isAfter(endDate)) {

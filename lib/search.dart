@@ -4,6 +4,7 @@ import 'package:myapp/widgets/search_result_page.dart';
 import 'package:provider/provider.dart';
 import 'widgets/FoundObject.dart';
 import 'widgets/date_picker_row.dart';
+import 'providers/StationProvider.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -37,14 +38,7 @@ class _SearchPageState extends State<SearchPage> {
     "Vélos, trottinettes, accessoires 2 roues",
     "Vêtements, chaussures"
   ];
-  final List<String> _allGares = [
-    'Gare 1',
-    'Gare 2',
-    'Gare 3',
-    'Gare 4',
-    'Gare 5',
-    // Ajoutez d'autres gares ici
-  ];
+
   DateTime? _startDate;
   DateTime? _endDate;
   String _searchResults = '';
@@ -52,6 +46,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
+    final stationProvider = Provider.of<StationProvider>(context, listen: false);
+    stationProvider.fetchObjects();
     _typeController.addListener(_onTypeChanged);
     _gareController.addListener(_onGareChanged);
     _typeFocusNode.addListener(_onTypeFocusChanged);
@@ -81,10 +77,11 @@ class _SearchPageState extends State<SearchPage> {
   }
 
   void _onGareChanged() {
+    final stationProvider = Provider.of<StationProvider>(context, listen: false);
+    final stations = stationProvider.getStationNames();
     setState(() {
-      _gareResults = _allGares
-          .where((gare) =>
-              gare.toLowerCase().contains(_gareController.text.toLowerCase()))
+      _gareResults = stations
+          .where((gare) => gare.toLowerCase().contains(_gareController.text.toLowerCase()))
           .toList();
     });
   }
