@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/widgets/FoundObject.dart';
+import 'package:myapp/models/FoundObject.dart';
 
 class SearchResultsPage extends StatelessWidget {
   final List<FoundObject> objects;

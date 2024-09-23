@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import '../services/ApiService.dart';
-import '../widgets/FoundObject.dart';
+import '../services/ObjectService.dart';
+import '../models/FoundObject.dart';
 
 class ObjectsProvider with ChangeNotifier {
   List<FoundObject> _objects = [];

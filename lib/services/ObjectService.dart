@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import '../widgets/FoundObject.dart';
+import '../models/FoundObject.dart';
 
 class ApiService {
   static const String baseUrl = 'https://ressources.data.sncf.com/api/explore/v2.1/catalog/datasets/objets-trouves-restitution/records';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/providers/ObjectProvider.dart';
+import 'package:myapp/providers/ObjectsProvider.dart';
 import 'package:provider/provider.dart';
-import 'widgets/FoundObject.dart';
+import 'models/FoundObject.dart';
 import 'widgets/date_picker_row.dart';
 import 'providers/StationProvider.dart';
 
