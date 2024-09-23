@@ -17,8 +17,9 @@ class ObjectsProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<FoundObject>> fetchObjectsWithFilters(Map<String, String> filters) async {
-    _objects = await ApiService().fetchObjectsWithFilters();
+  Future<List<FoundObject>> fetchObjectsWithFilters({String? stationName, String? typeObject, DateTime? startDate, DateTime? endDate}) async {
+    print('stationName: $stationName, typeObject: $typeObject, startDate: $startDate, endDate: $endDate');
+    _objects = await ApiService().fetchObjectsWithFilters(stationName: stationName, typeObject: typeObject, startDate: startDate, endDate: endDate);
     notifyListeners();
     return _objects;
   }

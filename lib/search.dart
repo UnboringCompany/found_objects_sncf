@@ -123,11 +123,13 @@ class _SearchPageState extends State<SearchPage> {
     setState(() {
       _startDate = date;
     });
+    print("Date de début : $_startDate");
   }
 
   void _onEndDateChanged(DateTime? date) {
     setState(() {
       _endDate = date;
+      print("Date de fin : $_endDate");
     });
   }
 
@@ -246,14 +248,23 @@ class _SearchPageState extends State<SearchPage> {
               // Bouton de validation de recherche
               ElevatedButton(
                 onPressed: () async {
-                  Map<String, String> filters = {
+                  // TODO : Corriger ça
+                  print("Recherche en cours...");
+                  print("Gare : ${_gareController.text}");
+                  print("Type : ${_typeController.text}");
+                  print("Date de début : $_startDate");
+                  print("Date de fin : $_endDate");
+                  Map<String, dynamic> filters = {
                     if (_gareController.text.isNotEmpty) 'station_name': _gareController.text,
                     if (_typeController.text.isNotEmpty) 'type': _typeController.text,
-                    if ( _startDate != null) 'date_min': _startDate!.toIso8601String(),
-                    if (_endDate != null) 'date_max': _endDate!.toIso8601String(),
+                    if ( _startDate != null) 'date_min': _startDate,
+                    if (_endDate != null) 'date_max': _endDate,
                   };
                   List<FoundObject> objects = await Provider.of<ObjectsProvider>(context, listen: false).fetchObjectsWithFilters(
-                    filters,
+                    stationName: filters['station_name'],
+                    typeObject: filters['type'],
+                    startDate: filters['date_min'],
+                    endDate: filters['date_max'],
                   );
                   Provider.of<ObjectsProvider>(context, listen: false).setObjects(objects);
                   Navigator.push(
