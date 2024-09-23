@@ -106,7 +106,8 @@ class ApiService {
     print(whereConditions);
     queryParams += '&where=${whereConditions.join('%20and%20')}';
   }
-  final response = await http.get(Uri.parse('$baseUrl?$queryParams'));
+  // &order_by=date%20DESC
+  final response = await http.get(Uri.parse('$baseUrl?$queryParams&order_by=date%20DESC'));
 
   print('$baseUrl?$queryParams');
 

@@ -39,9 +39,29 @@ class _SearchPageState extends State<SearchPage> {
     "Vêtements, chaussures"
   ];
 
+  final Map<String, IconData> _typeIcons = {
+    "Appareils électroniques, informatiques, appareils photo": Icons.computer,
+    "Articles d'enfants, de puériculture": Icons.child_care,
+    "Articles de sport, loisirs, camping": Icons.sports_basketball,
+    "Articles médicaux": Icons.medical_services,
+    "Bagagerie: sacs, valises, cartables": Icons.backpack,
+    "Bijoux, montres": Icons.watch,
+    "Clés, porte-clés, badge magnétique": Icons.vpn_key,
+    "Divers": Icons.help,
+    "Instruments de musique": Icons.music_note,
+    "Livres, articles de papéterie": Icons.book,
+    "Optique": Icons.remove_red_eye,
+    "Parapluies": Icons.umbrella,
+    "Pièces d'identités et papiers personnels": Icons.badge,
+    "Porte-monnaie / portefeuille, argent, titres": Icons.account_balance_wallet,
+    "Vélos, trottinettes, accessoires 2 roues": Icons.directions_bike,
+    "Vêtements, chaussures": Icons.checkroom
+  };
+
   DateTime? _startDate;
   DateTime? _endDate;
-  String _searchResults = '';
+  List<FoundObject> _searchResults = [];
+  bool _hasSearchResults = false;
 
   @override
   void initState() {
@@ -52,6 +72,8 @@ class _SearchPageState extends State<SearchPage> {
     _gareController.addListener(_onGareChanged);
     _typeFocusNode.addListener(_onTypeFocusChanged);
     _gareFocusNode.addListener(_onGareFocusChanged);
+    _typeFocusNode.addListener(_onFocusChanged);
+    _gareFocusNode.addListener(_onFocusChanged);
   }
 
   @override
@@ -60,6 +82,8 @@ class _SearchPageState extends State<SearchPage> {
     _gareController.removeListener(_onGareChanged);
     _typeFocusNode.removeListener(_onTypeFocusChanged);
     _gareFocusNode.removeListener(_onGareFocusChanged);
+    _typeFocusNode.removeListener(_onFocusChanged);
+    _gareFocusNode.removeListener(_onFocusChanged);
     _typeController.dispose();
     _gareController.dispose();
     _typeFocusNode.dispose();
@@ -102,6 +126,15 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 
+  void _onFocusChanged() {
+    if (_typeFocusNode.hasFocus || _gareFocusNode.hasFocus) {
+      setState(() {
+        _searchResults.clear();
+        _hasSearchResults = false;
+      });
+    }
+  }
+
   void _onTypeSelected(String type) {
     setState(() {
       _typeController.text = type;
@@ -120,14 +153,17 @@ class _SearchPageState extends State<SearchPage> {
     setState(() {
       _startDate = date;
     });
-    print("Date de début : $_startDate");
   }
 
   void _onEndDateChanged(DateTime? date) {
     setState(() {
       _endDate = date;
-      print("Date de fin : $_endDate");
     });
+  }
+
+  void _unfocusAll() {
+    _typeFocusNode.unfocus();
+    _gareFocusNode.unfocus();
   }
 
   @override
@@ -245,16 +281,12 @@ class _SearchPageState extends State<SearchPage> {
               // Bouton de validation de recherche
               ElevatedButton(
                 onPressed: () async {
-                  // TODO : Corriger ça
-                  print("Recherche en cours...");
-                  print("Gare : ${_gareController.text}");
-                  print("Type : ${_typeController.text}");
-                  print("Date de début : $_startDate");
-                  print("Date de fin : $_endDate");
+                  _unfocusAll(); // Défocus les champs de texte
+
                   Map<String, dynamic> filters = {
                     if (_gareController.text.isNotEmpty) 'station_name': _gareController.text,
                     if (_typeController.text.isNotEmpty) 'type': _typeController.text,
-                    if ( _startDate != null) 'date_min': _startDate,
+                    if (_startDate != null) 'date_min': _startDate,
                     if (_endDate != null) 'date_max': _endDate,
                   };
                   List<FoundObject> objects = await Provider.of<ObjectsProvider>(context, listen: false).fetchObjectsWithFilters(
@@ -264,18 +296,11 @@ class _SearchPageState extends State<SearchPage> {
                     endDate: filters['date_max'],
                   );
                   Provider.of<ObjectsProvider>(context, listen: false).setObjects(objects);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SearchResultsPage(objects: objects.take(10).toList()),
-                    ),
-                  );
                   setState(() {
-                    _searchResults = objects.isNotEmpty
-                        ? objects.map((object) => object.toString()).join('\n')
-                        : 'Aucun objet trouvé';
+                    _searchResults = objects;
+                    _hasSearchResults = true; // Mettre à jour la variable pour indiquer que des résultats sont disponibles
                   });
-                },                 
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF8EE9FE),
                   minimumSize:
@@ -296,14 +321,61 @@ class _SearchPageState extends State<SearchPage> {
               const SizedBox(height: 40),
 
               // Display search results
-              if (_searchResults.isNotEmpty)
+              if (_hasSearchResults)
                 Expanded(
-                  child: SingleChildScrollView(
-                    child: Text(
-                      _searchResults,
-                      style: const TextStyle(color: Colors.white),
+                  child: _searchResults.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: _searchResults.length,
+                          itemBuilder: (context, index) {
+                            final object = _searchResults[index];
+                            return Card(
+                              color: const Color(0xFF2C343A),
+                              child: ListTile(
+                                leading: Icon(
+                                  _typeIcons[object.type] ?? Icons.help, // Utilisez l'icône appropriée ou une icône par défaut
+                                  color: Colors.white, // Couleur de l'icône
+                                ),
+                                title: Text(
+                                  object.nature,
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      object.type,
+                                      style: const TextStyle(color: Colors.blueGrey),
+                                    ),
+                                    Text(
+                                      '${object.station_name} - ${object.date.day.toString().padLeft(2, '0')}/${object.date.month.toString().padLeft(2, '0')}/${object.date.year} à ${object.date.hour.toString().padLeft(2, '0')}:${object.date.minute.toString().padLeft(2, '0')}',
+                                      style: const TextStyle(color: Colors.grey),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                      : const Column(
+                  children: [
+                    Icon(
+                      Icons.cancel_outlined,
+                      size: 64,
+                      color: Color(0xFF656A6E),
                     ),
-                  ),
+                    SizedBox(height: 16),
+                    Text(
+                      'Nous n\'avons pas trouvé d\'objet \ncorrespondant à votre recherche',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF656A6E),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        height: 1.5,
+                      ),
+                    ),
+                  ],
+                ),
                 ),
 
               // Afficher les résultats de la recherche ou le message par défaut
@@ -315,6 +387,10 @@ class _SearchPageState extends State<SearchPage> {
                       return GestureDetector(
                         onTap: () => _onTypeSelected(_typeResults[index]),
                         child: ListTile(
+                          leading: Icon(
+                            _typeIcons[_typeResults[index]] ?? Icons.help, // Utilisez l'icône appropriée ou une icône par défaut
+                            color: Colors.white, // Couleur de l'icône
+                          ),
                           title: Text(
                             _typeResults[index],
                             style: const TextStyle(color: Colors.white),
@@ -332,6 +408,10 @@ class _SearchPageState extends State<SearchPage> {
                       return GestureDetector(
                         onTap: () => _onGareSelected(_gareResults[index]),
                         child: ListTile(
+                          leading: Icon(
+                            Icons.train, // Utilisez l'icône de gare appropriée
+                            color: Colors.white, // Couleur de l'icône
+                          ),
                           title: Text(
                             _gareResults[index],
                             style: const TextStyle(color: Colors.white),
@@ -341,7 +421,7 @@ class _SearchPageState extends State<SearchPage> {
                     },
                   ),
                 ),
-              if (_typeResults.isEmpty && _gareResults.isEmpty)
+              if (_typeResults.isEmpty && _gareResults.isEmpty && !_hasSearchResults)
                 const Column(
                   children: [
                     Icon(
