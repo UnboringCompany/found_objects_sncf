@@ -2,6 +2,7 @@
 ///
 /// This widget provides text fields for displaying the selected start and end dates, and uses the [showDatePicker] function to display a date picker dialog when the text fields are tapped.
 /// It also allows customizing the theme of the date picker dialog.
+library;
 import 'package:flutter/material.dart';
 
 class DatePickerRow extends StatefulWidget {

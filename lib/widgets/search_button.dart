@@ -2,6 +2,7 @@
 ///
 /// This widget provides a button that navigates to a search page when pressed.
 /// The button has a custom style that includes a text label and an icon.
+library;
 import 'package:flutter/material.dart';
 
 class SearchButton extends StatelessWidget {
