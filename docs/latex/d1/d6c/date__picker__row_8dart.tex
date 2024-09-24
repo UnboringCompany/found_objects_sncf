@@ -1,0 +1,79 @@
+\doxysection{lib/widgets/date\+\_\+picker\+\_\+row.dart File Reference}
+\hypertarget{date__picker__row_8dart}{}\label{date__picker__row_8dart}\index{lib/widgets/date\_picker\_row.dart@{lib/widgets/date\_picker\_row.dart}}
+{\ttfamily import package;}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_stateful_widget}{Stateful\+Widget}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Future$<$ void $>$ \mbox{\hyperlink{date__picker__row_8dart_a2fdfbdf1428133f1f5f8614f60e21504}{\+\_\+select\+Date}} (Build\+Context context, Text\+Editing\+Controller controller, void Function(Date\+Time? date) on\+Date\+Changed) async
+\item 
+override Widget \mbox{\hyperlink{date__picker__row_8dart_ab022cbdb8080a3d9d6ccf33cead2b33a}{build}} (Build\+Context context)
+\begin{DoxyCompactList}\small\item\em This method returns a \mbox{[}Row\mbox{]} widget that contains the start and end date text fields. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{date__picker__row_8dart_a2276f26ae4897992f6da960ea88601e9}{library}}
+\item 
+class Date\+Picker\+Row extends \mbox{\hyperlink{class_stateful_widget}{Stateful\+Widget}} \mbox{\hyperlink{date__picker__row_8dart_ac3a3e5cbe5eb6db96cfe89923f273eed}{\+\_\+start\+Date\+Controller}} = Text\+Editing\+Controller()
+\begin{DoxyCompactList}\small\item\em The text editing controller for the start date text field. ~\newline
+ \end{DoxyCompactList}\item 
+final Text\+Editing\+Controller \mbox{\hyperlink{date__picker__row_8dart_ac56b814dcc1cbcb67d5d2dbd3af8027b}{\+\_\+end\+Date\+Controller}} = Text\+Editing\+Controller()
+\begin{DoxyCompactList}\small\item\em The text editing controller for the end date text field. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{date__picker__row_8dart_a2fdfbdf1428133f1f5f8614f60e21504}\index{date\_picker\_row.dart@{date\_picker\_row.dart}!\_selectDate@{\_selectDate}}
+\index{\_selectDate@{\_selectDate}!date\_picker\_row.dart@{date\_picker\_row.dart}}
+\doxysubsubsection{\texorpdfstring{\_selectDate()}{\_selectDate()}}
+{\footnotesize\ttfamily \label{date__picker__row_8dart_a2fdfbdf1428133f1f5f8614f60e21504} 
+Future$<$ void $>$ \+\_\+select\+Date (\begin{DoxyParamCaption}\item[{Build\+Context}]{context}{, }\item[{Text\+Editing\+Controller}]{controller}{, }\item[{void Function(Date\+Time? date)}]{on\+Date\+Changed}{}\end{DoxyParamCaption})}
+
+Displays a date picker dialog and updates the specified text field with the selected date.
+
+\mbox{[}context\mbox{]} The build context. \mbox{[}controller\mbox{]} The text editing controller for the text field to update. \mbox{[}on\+Date\+Changed\mbox{]} The callback function to call when the date is changed \Hypertarget{date__picker__row_8dart_ab022cbdb8080a3d9d6ccf33cead2b33a}\index{date\_picker\_row.dart@{date\_picker\_row.dart}!build@{build}}
+\index{build@{build}!date\_picker\_row.dart@{date\_picker\_row.dart}}
+\doxysubsubsection{\texorpdfstring{build()}{build()}}
+{\footnotesize\ttfamily \label{date__picker__row_8dart_ab022cbdb8080a3d9d6ccf33cead2b33a} 
+override Widget build (\begin{DoxyParamCaption}\item[{Build\+Context}]{context}{}\end{DoxyParamCaption})}
+
+
+
+This method returns a \mbox{[}Row\mbox{]} widget that contains the start and end date text fields. 
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{date__picker__row_8dart_ac56b814dcc1cbcb67d5d2dbd3af8027b}\index{date\_picker\_row.dart@{date\_picker\_row.dart}!\_endDateController@{\_endDateController}}
+\index{\_endDateController@{\_endDateController}!date\_picker\_row.dart@{date\_picker\_row.dart}}
+\doxysubsubsection{\texorpdfstring{\_endDateController}{\_endDateController}}
+{\footnotesize\ttfamily \label{date__picker__row_8dart_ac56b814dcc1cbcb67d5d2dbd3af8027b} 
+final Text\+Editing\+Controller \+\_\+end\+Date\+Controller = Text\+Editing\+Controller()}
+
+
+
+The text editing controller for the end date text field. 
+
+\Hypertarget{date__picker__row_8dart_ac3a3e5cbe5eb6db96cfe89923f273eed}\index{date\_picker\_row.dart@{date\_picker\_row.dart}!\_startDateController@{\_startDateController}}
+\index{\_startDateController@{\_startDateController}!date\_picker\_row.dart@{date\_picker\_row.dart}}
+\doxysubsubsection{\texorpdfstring{\_startDateController}{\_startDateController}}
+{\footnotesize\ttfamily \label{date__picker__row_8dart_ac3a3e5cbe5eb6db96cfe89923f273eed} 
+class Date\+Picker\+Row extends \mbox{\hyperlink{class_stateful_widget}{Stateful\+Widget}} \+\_\+start\+Date\+Controller = Text\+Editing\+Controller()}
+
+
+
+The text editing controller for the start date text field. ~\newline
+ 
+
+\Hypertarget{date__picker__row_8dart_a2276f26ae4897992f6da960ea88601e9}\index{date\_picker\_row.dart@{date\_picker\_row.dart}!library@{library}}
+\index{library@{library}!date\_picker\_row.dart@{date\_picker\_row.dart}}
+\doxysubsubsection{\texorpdfstring{library}{library}}
+{\footnotesize\ttfamily \label{date__picker__row_8dart_a2276f26ae4897992f6da960ea88601e9} 
+library}
+
+A widget that displays two date pickers for selecting a start and end date.
+
+This widget provides text fields for displaying the selected start and end dates, and uses the \mbox{[}show\+Date\+Picker\mbox{]} function to display a date picker dialog when the text fields are tapped. It also allows customizing the theme of the date picker dialog. 

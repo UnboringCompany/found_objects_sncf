@@ -8,6 +8,7 @@
     pkgs.nodePackages.firebase-tools
     pkgs.jdk17
     pkgs.unzip
+    pkgs.doxygen
   ];
   # Sets environment variables in the workspace
   env = {};

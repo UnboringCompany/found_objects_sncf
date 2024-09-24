@@ -1,0 +1,291 @@
+\doxysection{lib/search.dart File Reference}
+\hypertarget{search_8dart}{}\label{search_8dart}\index{lib/search.dart@{lib/search.dart}}
+{\ttfamily import package;}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_stateful_widget}{Stateful\+Widget}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+override void \mbox{\hyperlink{search_8dart_ab339d53d3945a16dfdd20004616a8ddc}{init\+State}} ()
+\item 
+override void \mbox{\hyperlink{search_8dart_acc340fabce6d1fd6056b3c2e871d98d2}{dispose}} ()
+\item 
+void \mbox{\hyperlink{search_8dart_abb089b8b6e02f547397aa3965204dd0a}{\+\_\+on\+Type\+Changed}} ()
+\begin{DoxyCompactList}\small\item\em Updates the list of object types based on the text entered in the object type text field. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{search_8dart_a3413f4d8013bbc670cb9a9f6aa02a00b}{\+\_\+on\+Gare\+Changed}} ()
+\begin{DoxyCompactList}\small\item\em Updates the list of stations based on the text entered in the station text field. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{search_8dart_ac91a5994362bef8c623d3e090874b36e}{\+\_\+on\+Gare\+Focus\+Changed}} ()
+\begin{DoxyCompactList}\small\item\em Clears the list of stations when the station text field loses focus. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{search_8dart_adafcbacf529962d7875dd740c6ce42fe}{\+\_\+on\+Focus\+Changed}} ()
+\begin{DoxyCompactList}\small\item\em Clears the list of search results when either the object type or station text field gains focus. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{search_8dart_abbf03e7377eb1ac2247a5540ae0e5aa3}{\+\_\+on\+Type\+Focus\+Changed}} ()
+\begin{DoxyCompactList}\small\item\em Clears the list of object types when the object type text field loses focus. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{search_8dart_a90fc013432d7b8dd3db6e7cd89b5b574}{\+\_\+on\+Type\+Selected}} (String type)
+\begin{DoxyCompactList}\small\item\em Updates the object type text field with the selected object type and clears the list of object types. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{search_8dart_a3285a63f5ce7a9dd00d6f020fcd39f1a}{\+\_\+on\+Gare\+Selected}} (String gare)
+\begin{DoxyCompactList}\small\item\em Updates the station text field with the selected station and clears the list of stations. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{search_8dart_a62ee2791e8f8cf1403e916977a02d9d7}{\+\_\+on\+Start\+Date\+Changed}} (Date\+Time? date)
+\begin{DoxyCompactList}\small\item\em Updates the start date based on the selected date in the start date picker. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{search_8dart_ac55b298e17d0edfaf36477fb19e3bed9}{\+\_\+on\+End\+Date\+Changed}} (Date\+Time? date)
+\begin{DoxyCompactList}\small\item\em Updates the end date based on the selected date in the end date picker. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{search_8dart_a48a3a37a108cc1be7b4038e0d28c5dc5}{\+\_\+unfocus\+All}} ()
+\begin{DoxyCompactList}\small\item\em Unfocuses both the object type and station text fields. \end{DoxyCompactList}\item 
+override Widget \mbox{\hyperlink{search_8dart_ab022cbdb8080a3d9d6ccf33cead2b33a}{build}} (Build\+Context context)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{search_8dart_a2276f26ae4897992f6da960ea88601e9}{library}}
+\item 
+class Search\+Page extends \mbox{\hyperlink{class_stateful_widget}{Stateful\+Widget}} \mbox{\hyperlink{search_8dart_a826645131d71b4bd5b052b4e051f06c6}{\+\_\+type\+Controller}} = Text\+Editing\+Controller()
+\item 
+final Text\+Editing\+Controller \mbox{\hyperlink{search_8dart_a3797bef551408cc0598f721510f895c2}{\+\_\+gare\+Controller}} = Text\+Editing\+Controller()
+\item 
+final Focus\+Node \mbox{\hyperlink{search_8dart_aa7e87d50e3e1a0843e521e7dab31b3a3}{\+\_\+type\+Focus\+Node}} = Focus\+Node()
+\item 
+final Focus\+Node \mbox{\hyperlink{search_8dart_a4267fba3938991b95fcde1156b219fcf}{\+\_\+gare\+Focus\+Node}} = Focus\+Node()
+\item 
+List$<$ String $>$ \mbox{\hyperlink{search_8dart_aac8c538c564dd1bd090e1e2ecf3b93fd}{\+\_\+type\+Results}} = \mbox{[}$\,$\mbox{]}
+\item 
+List$<$ String $>$ \mbox{\hyperlink{search_8dart_a56b4c259deee7cef711e9548c80d0222}{\+\_\+gare\+Results}} = \mbox{[}$\,$\mbox{]}
+\item 
+final Map$<$ String, Icon\+Data $>$ \mbox{\hyperlink{search_8dart_a97fe707adcbe4c9eed1c48581da496b4}{\+\_\+type\+Icons}}
+\item 
+Date\+Time \mbox{\hyperlink{search_8dart_a30f2c0d42425f84541452621b82c427b}{\+\_\+start\+Date}}
+\item 
+Date\+Time \mbox{\hyperlink{search_8dart_a15d6a6305be3429771895011e43b44a3}{\+\_\+end\+Date}}
+\item 
+List$<$ \mbox{\hyperlink{class_found_object}{Found\+Object}} $>$ \mbox{\hyperlink{search_8dart_a75f32eca5d21ca20df4eff2a1b50cdab}{\+\_\+search\+Results}} = \mbox{[}$\,$\mbox{]}
+\item 
+bool \mbox{\hyperlink{search_8dart_ac028b691e2abe9d2cc67fec4b0c0a578}{\+\_\+has\+Search\+Results}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{search_8dart_ac55b298e17d0edfaf36477fb19e3bed9}\index{search.dart@{search.dart}!\_onEndDateChanged@{\_onEndDateChanged}}
+\index{\_onEndDateChanged@{\_onEndDateChanged}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_onEndDateChanged()}{\_onEndDateChanged()}}
+{\footnotesize\ttfamily \label{search_8dart_ac55b298e17d0edfaf36477fb19e3bed9} 
+void \+\_\+on\+End\+Date\+Changed (\begin{DoxyParamCaption}\item[{Date\+Time?}]{date}{}\end{DoxyParamCaption})}
+
+
+
+Updates the end date based on the selected date in the end date picker. 
+
+\Hypertarget{search_8dart_adafcbacf529962d7875dd740c6ce42fe}\index{search.dart@{search.dart}!\_onFocusChanged@{\_onFocusChanged}}
+\index{\_onFocusChanged@{\_onFocusChanged}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_onFocusChanged()}{\_onFocusChanged()}}
+{\footnotesize\ttfamily \label{search_8dart_adafcbacf529962d7875dd740c6ce42fe} 
+void \+\_\+on\+Focus\+Changed (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Clears the list of search results when either the object type or station text field gains focus. 
+
+\Hypertarget{search_8dart_a3413f4d8013bbc670cb9a9f6aa02a00b}\index{search.dart@{search.dart}!\_onGareChanged@{\_onGareChanged}}
+\index{\_onGareChanged@{\_onGareChanged}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_onGareChanged()}{\_onGareChanged()}}
+{\footnotesize\ttfamily \label{search_8dart_a3413f4d8013bbc670cb9a9f6aa02a00b} 
+void \+\_\+on\+Gare\+Changed (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Updates the list of stations based on the text entered in the station text field. 
+
+\Hypertarget{search_8dart_ac91a5994362bef8c623d3e090874b36e}\index{search.dart@{search.dart}!\_onGareFocusChanged@{\_onGareFocusChanged}}
+\index{\_onGareFocusChanged@{\_onGareFocusChanged}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_onGareFocusChanged()}{\_onGareFocusChanged()}}
+{\footnotesize\ttfamily \label{search_8dart_ac91a5994362bef8c623d3e090874b36e} 
+void \+\_\+on\+Gare\+Focus\+Changed (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Clears the list of stations when the station text field loses focus. 
+
+\Hypertarget{search_8dart_a3285a63f5ce7a9dd00d6f020fcd39f1a}\index{search.dart@{search.dart}!\_onGareSelected@{\_onGareSelected}}
+\index{\_onGareSelected@{\_onGareSelected}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_onGareSelected()}{\_onGareSelected()}}
+{\footnotesize\ttfamily \label{search_8dart_a3285a63f5ce7a9dd00d6f020fcd39f1a} 
+void \+\_\+on\+Gare\+Selected (\begin{DoxyParamCaption}\item[{String}]{gare}{}\end{DoxyParamCaption})}
+
+
+
+Updates the station text field with the selected station and clears the list of stations. 
+
+\Hypertarget{search_8dart_a62ee2791e8f8cf1403e916977a02d9d7}\index{search.dart@{search.dart}!\_onStartDateChanged@{\_onStartDateChanged}}
+\index{\_onStartDateChanged@{\_onStartDateChanged}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_onStartDateChanged()}{\_onStartDateChanged()}}
+{\footnotesize\ttfamily \label{search_8dart_a62ee2791e8f8cf1403e916977a02d9d7} 
+void \+\_\+on\+Start\+Date\+Changed (\begin{DoxyParamCaption}\item[{Date\+Time?}]{date}{}\end{DoxyParamCaption})}
+
+
+
+Updates the start date based on the selected date in the start date picker. 
+
+\Hypertarget{search_8dart_abb089b8b6e02f547397aa3965204dd0a}\index{search.dart@{search.dart}!\_onTypeChanged@{\_onTypeChanged}}
+\index{\_onTypeChanged@{\_onTypeChanged}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_onTypeChanged()}{\_onTypeChanged()}}
+{\footnotesize\ttfamily \label{search_8dart_abb089b8b6e02f547397aa3965204dd0a} 
+void \+\_\+on\+Type\+Changed (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Updates the list of object types based on the text entered in the object type text field. 
+
+\Hypertarget{search_8dart_abbf03e7377eb1ac2247a5540ae0e5aa3}\index{search.dart@{search.dart}!\_onTypeFocusChanged@{\_onTypeFocusChanged}}
+\index{\_onTypeFocusChanged@{\_onTypeFocusChanged}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_onTypeFocusChanged()}{\_onTypeFocusChanged()}}
+{\footnotesize\ttfamily \label{search_8dart_abbf03e7377eb1ac2247a5540ae0e5aa3} 
+void \+\_\+on\+Type\+Focus\+Changed (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Clears the list of object types when the object type text field loses focus. 
+
+\Hypertarget{search_8dart_a90fc013432d7b8dd3db6e7cd89b5b574}\index{search.dart@{search.dart}!\_onTypeSelected@{\_onTypeSelected}}
+\index{\_onTypeSelected@{\_onTypeSelected}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_onTypeSelected()}{\_onTypeSelected()}}
+{\footnotesize\ttfamily \label{search_8dart_a90fc013432d7b8dd3db6e7cd89b5b574} 
+void \+\_\+on\+Type\+Selected (\begin{DoxyParamCaption}\item[{String}]{type}{}\end{DoxyParamCaption})}
+
+
+
+Updates the object type text field with the selected object type and clears the list of object types. 
+
+\Hypertarget{search_8dart_a48a3a37a108cc1be7b4038e0d28c5dc5}\index{search.dart@{search.dart}!\_unfocusAll@{\_unfocusAll}}
+\index{\_unfocusAll@{\_unfocusAll}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_unfocusAll()}{\_unfocusAll()}}
+{\footnotesize\ttfamily \label{search_8dart_a48a3a37a108cc1be7b4038e0d28c5dc5} 
+void \+\_\+unfocus\+All (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Unfocuses both the object type and station text fields. 
+
+\Hypertarget{search_8dart_ab022cbdb8080a3d9d6ccf33cead2b33a}\index{search.dart@{search.dart}!build@{build}}
+\index{build@{build}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{build()}{build()}}
+{\footnotesize\ttfamily \label{search_8dart_ab022cbdb8080a3d9d6ccf33cead2b33a} 
+override Widget build (\begin{DoxyParamCaption}\item[{Build\+Context}]{context}{}\end{DoxyParamCaption})}
+
+Builds the \mbox{[}Search\+Page\mbox{]} widget.
+
+This method returns a \mbox{[}Scaffold\mbox{]} widget that contains the search form and the search results. \Hypertarget{search_8dart_acc340fabce6d1fd6056b3c2e871d98d2}\index{search.dart@{search.dart}!dispose@{dispose}}
+\index{dispose@{dispose}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{dispose()}{dispose()}}
+{\footnotesize\ttfamily \label{search_8dart_acc340fabce6d1fd6056b3c2e871d98d2} 
+override void dispose (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Disposes of the state of the \mbox{[}Search\+Page\mbox{]} widget.
+
+This method removes listeners from the text fields and focus nodes and disposes of them. \Hypertarget{search_8dart_ab339d53d3945a16dfdd20004616a8ddc}\index{search.dart@{search.dart}!initState@{initState}}
+\index{initState@{initState}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{initState()}{initState()}}
+{\footnotesize\ttfamily \label{search_8dart_ab339d53d3945a16dfdd20004616a8ddc} 
+override void init\+State (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Initializes the state of the \mbox{[}Search\+Page\mbox{]} widget.
+
+This method fetches stations from the \mbox{[}Station\+Provider\mbox{]} and adds listeners to the text fields and focus nodes. 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{search_8dart_a15d6a6305be3429771895011e43b44a3}\index{search.dart@{search.dart}!\_endDate@{\_endDate}}
+\index{\_endDate@{\_endDate}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_endDate}{\_endDate}}
+{\footnotesize\ttfamily \label{search_8dart_a15d6a6305be3429771895011e43b44a3} 
+Date\+Time \+\_\+end\+Date}
+
+\Hypertarget{search_8dart_a3797bef551408cc0598f721510f895c2}\index{search.dart@{search.dart}!\_gareController@{\_gareController}}
+\index{\_gareController@{\_gareController}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_gareController}{\_gareController}}
+{\footnotesize\ttfamily \label{search_8dart_a3797bef551408cc0598f721510f895c2} 
+final Text\+Editing\+Controller \+\_\+gare\+Controller = Text\+Editing\+Controller()}
+
+\Hypertarget{search_8dart_a4267fba3938991b95fcde1156b219fcf}\index{search.dart@{search.dart}!\_gareFocusNode@{\_gareFocusNode}}
+\index{\_gareFocusNode@{\_gareFocusNode}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_gareFocusNode}{\_gareFocusNode}}
+{\footnotesize\ttfamily \label{search_8dart_a4267fba3938991b95fcde1156b219fcf} 
+final Focus\+Node \+\_\+gare\+Focus\+Node = Focus\+Node()}
+
+\Hypertarget{search_8dart_a56b4c259deee7cef711e9548c80d0222}\index{search.dart@{search.dart}!\_gareResults@{\_gareResults}}
+\index{\_gareResults@{\_gareResults}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_gareResults}{\_gareResults}}
+{\footnotesize\ttfamily \label{search_8dart_a56b4c259deee7cef711e9548c80d0222} 
+List$<$String$>$ \+\_\+gare\+Results = \mbox{[}$\,$\mbox{]}}
+
+\Hypertarget{search_8dart_ac028b691e2abe9d2cc67fec4b0c0a578}\index{search.dart@{search.dart}!\_hasSearchResults@{\_hasSearchResults}}
+\index{\_hasSearchResults@{\_hasSearchResults}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_hasSearchResults}{\_hasSearchResults}}
+{\footnotesize\ttfamily \label{search_8dart_ac028b691e2abe9d2cc67fec4b0c0a578} 
+bool \+\_\+has\+Search\+Results = false}
+
+\Hypertarget{search_8dart_a75f32eca5d21ca20df4eff2a1b50cdab}\index{search.dart@{search.dart}!\_searchResults@{\_searchResults}}
+\index{\_searchResults@{\_searchResults}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_searchResults}{\_searchResults}}
+{\footnotesize\ttfamily \label{search_8dart_a75f32eca5d21ca20df4eff2a1b50cdab} 
+List$<$\mbox{\hyperlink{class_found_object}{Found\+Object}}$>$ \+\_\+search\+Results = \mbox{[}$\,$\mbox{]}}
+
+\Hypertarget{search_8dart_a30f2c0d42425f84541452621b82c427b}\index{search.dart@{search.dart}!\_startDate@{\_startDate}}
+\index{\_startDate@{\_startDate}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_startDate}{\_startDate}}
+{\footnotesize\ttfamily \label{search_8dart_a30f2c0d42425f84541452621b82c427b} 
+Date\+Time \+\_\+start\+Date}
+
+\Hypertarget{search_8dart_a826645131d71b4bd5b052b4e051f06c6}\index{search.dart@{search.dart}!\_typeController@{\_typeController}}
+\index{\_typeController@{\_typeController}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_typeController}{\_typeController}}
+{\footnotesize\ttfamily \label{search_8dart_a826645131d71b4bd5b052b4e051f06c6} 
+class Search\+Page extends \mbox{\hyperlink{class_stateful_widget}{Stateful\+Widget}} \+\_\+type\+Controller = Text\+Editing\+Controller()}
+
+\Hypertarget{search_8dart_aa7e87d50e3e1a0843e521e7dab31b3a3}\index{search.dart@{search.dart}!\_typeFocusNode@{\_typeFocusNode}}
+\index{\_typeFocusNode@{\_typeFocusNode}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_typeFocusNode}{\_typeFocusNode}}
+{\footnotesize\ttfamily \label{search_8dart_aa7e87d50e3e1a0843e521e7dab31b3a3} 
+final Focus\+Node \+\_\+type\+Focus\+Node = Focus\+Node()}
+
+\Hypertarget{search_8dart_a97fe707adcbe4c9eed1c48581da496b4}\index{search.dart@{search.dart}!\_typeIcons@{\_typeIcons}}
+\index{\_typeIcons@{\_typeIcons}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_typeIcons}{\_typeIcons}}
+{\footnotesize\ttfamily \label{search_8dart_a97fe707adcbe4c9eed1c48581da496b4} 
+final Map$<$String, Icon\+Data$>$ \+\_\+type\+Icons}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Appareils\ électroniques,\ informatiques,\ appareils\ photo"{}}:\ Icons.computer,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Articles\ d'enfants,\ de\ puériculture"{}}:\ Icons.child\_care,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Articles\ de\ sport,\ loisirs,\ camping"{}}:\ Icons.sports\_basketball,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Articles\ médicaux"{}}:\ Icons.medical\_services,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Bagagerie:\ sacs,\ valises,\ cartables"{}}:\ Icons.backpack,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Bijoux,\ montres"{}}:\ Icons.watch,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Clés,\ porte-\/clés,\ badge\ magnétique"{}}:\ Icons.vpn\_key,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Divers"{}}:\ Icons.help,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Instruments\ de\ musique"{}}:\ Icons.music\_note,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Livres,\ articles\ de\ papéterie"{}}:\ Icons.book,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Optique"{}}:\ Icons.remove\_red\_eye,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Parapluies"{}}:\ Icons.umbrella,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Pièces\ d'identités\ et\ papiers\ personnels"{}}:\ Icons.badge,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Porte-\/monnaie\ /\ portefeuille,\ argent,\ titres"{}}:\ Icons.account\_balance\_wallet,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Vélos,\ trottinettes,\ accessoires\ 2\ roues"{}}:\ Icons.directions\_bike,}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{"{}Vêtements,\ chaussures"{}}:\ Icons.checkroom}
+\DoxyCodeLine{\ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{search_8dart_aac8c538c564dd1bd090e1e2ecf3b93fd}\index{search.dart@{search.dart}!\_typeResults@{\_typeResults}}
+\index{\_typeResults@{\_typeResults}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{\_typeResults}{\_typeResults}}
+{\footnotesize\ttfamily \label{search_8dart_aac8c538c564dd1bd090e1e2ecf3b93fd} 
+List$<$String$>$ \+\_\+type\+Results = \mbox{[}$\,$\mbox{]}}
+
+\Hypertarget{search_8dart_a2276f26ae4897992f6da960ea88601e9}\index{search.dart@{search.dart}!library@{library}}
+\index{library@{library}!search.dart@{search.dart}}
+\doxysubsubsection{\texorpdfstring{library}{library}}
+{\footnotesize\ttfamily \label{search_8dart_a2276f26ae4897992f6da960ea88601e9} 
+library}
+
+A widget that allows users to search for lost objects.
+
+This widget provides text fields for entering the station name and object type, as well as date pickers for selecting the start and end dates. It uses the \mbox{[}Objects\+Provider\mbox{]} and \mbox{[}Station\+Provider\mbox{]} classes to fetch objects and stations, respectively. It also uses the \mbox{[}Object\+Tile\mbox{]} widget to display search results. 
