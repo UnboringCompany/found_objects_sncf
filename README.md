@@ -34,6 +34,16 @@ If the user doesn't select any filter, the app displays all the found objects. A
 
 The app also displays a message if no objects are found based on the search filters.
 
+## Documentation
+We added doxygen to acces the whole documentation easyly. To generate the documentation, you need to install doxygen and the you can run the following command in the terminal:
+```bash
+doxygen Doxyfile
+```
+Then, you can open the index.html by entering the following command in the terminal:
+```bash
+start docs/html/index.html
+```
+
 ## Date
 
 The app was last updated on 24/09/2024.
