@@ -50,6 +50,11 @@ class MyApp extends StatelessWidget {
       title: 'SNCF FoundIt',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textSelectionTheme: TextSelectionThemeData(
+          selectionColor: const Color(0xFF8EE9FE).withOpacity(0.5), // Couleur de la sélection
+          cursorColor: const Color(0xFF8EE9FE), // Couleur du curseur
+          selectionHandleColor: const Color(0xFF8EE9FE), // Couleur des poignées de sélection
+        ),
       ),
       debugShowCheckedModeBanner: false,
       home: HomePage(),

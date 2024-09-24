@@ -221,7 +221,6 @@ class _SearchPageState extends State<SearchPage> {
                       child: TextField(
                         controller: _gareController,
                         focusNode: _gareFocusNode,
-                        cursorColor: const Color(0xFF8EE9FE),
                         decoration: const InputDecoration(
                           hintText: 'Où étiez-vous ?',
                           hintStyle: TextStyle(color: Color(0xFF656A6E)),
@@ -256,7 +255,6 @@ class _SearchPageState extends State<SearchPage> {
                       child: TextField(
                         controller: _typeController,
                         focusNode: _typeFocusNode,
-                        cursorColor: const Color(0xFF8EE9FE),
                         decoration: const InputDecoration(
                           hintText: 'De quoi s\'agit-il ?',
                           hintStyle: TextStyle(color: Color(0xFF656A6E)),
