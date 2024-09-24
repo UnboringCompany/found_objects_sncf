@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/providers/ObjectsProvider.dart';
+import 'package:myapp/widgets/object_tile.dart';
 import 'package:provider/provider.dart';
 import 'models/FoundObject.dart';
 import 'widgets/date_picker_row.dart';
@@ -9,6 +10,7 @@ class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SearchPageState createState() => _SearchPageState();
 }
 
@@ -19,24 +21,6 @@ class _SearchPageState extends State<SearchPage> {
   final FocusNode _gareFocusNode = FocusNode();
   List<String> _typeResults = [];
   List<String> _gareResults = [];
-  final List<String> _allTypes = [
-    "Appareils électroniques, informatiques, appareils photo",
-    "Articles d'enfants, de puériculture",
-    "Articles de sport, loisirs, camping",
-    "Articles médicaux",
-    "Bagagerie: sacs, valises, cartables",
-    "Bijoux, montres",
-    "Clés, porte-clés, badge magnétique",
-    "Divers",
-    "Instruments de musique",
-    "Livres, articles de papéterie",
-    "Optique",
-    "Parapluies",
-    "Pièces d'identités et papiers personnels",
-    "Porte-monnaie / portefeuille, argent, titres",
-    "Vélos, trottinettes, accessoires 2 roues",
-    "Vêtements, chaussures"
-  ];
 
   final Map<String, IconData> _typeIcons = {
     "Appareils électroniques, informatiques, appareils photo": Icons.computer,
@@ -92,9 +76,8 @@ class _SearchPageState extends State<SearchPage> {
 
   void _onTypeChanged() {
     setState(() {
-      _typeResults = _allTypes
-          .where((type) =>
-              type.toLowerCase().contains(_typeController.text.toLowerCase()))
+      _typeResults = _typeIcons.keys
+          .where((type) => type.toLowerCase().contains(_typeController.text.toLowerCase()))
           .toList();
     });
   }
@@ -292,6 +275,7 @@ class _SearchPageState extends State<SearchPage> {
                     startDate: filters['date_min'],
                     endDate: filters['date_max'],
                   );
+                  // ignore: use_build_context_synchronously
                   Provider.of<ObjectsProvider>(context, listen: false).setObjects(objects);
                   setState(() {
                     _searchResults = objects;
@@ -325,32 +309,7 @@ class _SearchPageState extends State<SearchPage> {
                           itemCount: _searchResults.length,
                           itemBuilder: (context, index) {
                             final object = _searchResults[index];
-                            return Card(
-                              color: const Color(0xFF2C343A),
-                              child: ListTile(
-                                leading: Icon(
-                                  _typeIcons[object.type] ?? Icons.help, // Utilisez l'icône appropriée ou une icône par défaut
-                                  color: Colors.white, // Couleur de l'icône
-                                ),
-                                title: Text(
-                                  object.nature,
-                                  style: const TextStyle(color: Colors.white),
-                                ),
-                                subtitle: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      object.type,
-                                      style: const TextStyle(color: Colors.blueGrey),
-                                    ),
-                                    Text(
-                                      '${object.station_name} - ${object.date.day.toString().padLeft(2, '0')}/${object.date.month.toString().padLeft(2, '0')}/${object.date.year} à ${object.date.hour.toString().padLeft(2, '0')}:${object.date.minute.toString().padLeft(2, '0')}',
-                                      style: const TextStyle(color: Colors.grey),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
+                            return ObjectTile(nature: object.nature, type: object.type, station: object.station_name, date: object.date);
                           },
                         )
                       : const Column(
@@ -405,7 +364,7 @@ class _SearchPageState extends State<SearchPage> {
                       return GestureDetector(
                         onTap: () => _onGareSelected(_gareResults[index]),
                         child: ListTile(
-                          leading: Icon(
+                          leading: const Icon(
                             Icons.train, // Utilisez l'icône de gare appropriée
                             color: Colors.white, // Couleur de l'icône
                           ),

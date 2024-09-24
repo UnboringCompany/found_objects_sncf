@@ -98,15 +98,14 @@ class ApiService {
     whereConditions.add('date%20%3E%3D%20"${startDateUtc.toIso8601String()}"');
   }
   if (endDate != null) {
-    final endDateUtc = endDate.toUtc();
+    // Mettre l'heure de fin à 23h59 pour inclure tous les objets trouvés le jour de la date de fin
+    final endDateUtc = DateTime(endDate.year, endDate.month, endDate.day, 23, 59).toUtc();
     whereConditions.add('date%20%3C%3D%20"${endDateUtc.toIso8601String()}"');
   }
   if (whereConditions.isNotEmpty) {
-    print("Conditions :");
-    print(whereConditions);
     queryParams += '&where=${whereConditions.join('%20and%20')}';
   }
-  // &order_by=date%20DESC
+
   final response = await http.get(Uri.parse('$baseUrl?$queryParams&order_by=date%20DESC'));
 
   print('$baseUrl?$queryParams');

@@ -2,31 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myapp/providers/StationProvider.dart';
 import 'package:myapp/models/FoundObject.dart';
+import 'package:myapp/widgets/object_tile.dart';
 import 'widgets/search_button.dart';
 import 'search.dart';
 import 'package:provider/provider.dart';
 import 'providers/ObjectsProvider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-final Map<String, IconData> _typeIcons = {
-  "Appareils électroniques, informatiques, appareils photo": Icons.computer,
-  "Articles d'enfants, de puériculture": Icons.child_care,
-  "Articles de sport, loisirs, camping": Icons.sports_basketball,
-  "Articles médicaux": Icons.medical_services,
-  "Bagagerie: sacs, valises, cartables": Icons.backpack,
-  "Bijoux, montres": Icons.watch,
-  "Clés, porte-clés, badge magnétique": Icons.vpn_key,
-  "Divers": Icons.help,
-  "Instruments de musique": Icons.music_note,
-  "Livres, articles de papéterie": Icons.book,
-  "Optique": Icons.remove_red_eye,
-  "Parapluies": Icons.umbrella,
-  "Pièces d'identités et papiers personnels": Icons.badge,
-  "Porte-monnaie / portefeuille, argent, titres": Icons.account_balance_wallet,
-  "Vélos, trottinettes, accessoires 2 roues": Icons.directions_bike,
-  "Vêtements, chaussures": Icons.checkroom
-};
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,7 +56,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  DateTime? lastVisit;
+  
+  DateTime lastVisit = DateTime.now().subtract(const Duration(days: 30)); // Par défaut, la dernière visite est la date actuelle moins 1 mois
 
   @override
   void initState() {
@@ -214,32 +197,7 @@ class _HomePageState extends State<HomePage> {
                         itemCount: objects.length,
                         itemBuilder: (context, index) {
                           final object = objects[index];
-                          return Card(
-                            color: const Color(0xFF2C343A),
-                            child: ListTile(
-                              leading: Icon(
-                                _typeIcons[objects[index]] ?? Icons.help, // Utilisez l'icône appropriée ou une icône par défaut
-                                color: Colors.white, // Couleur de l'icône
-                              ),
-                              title: Text(
-                                object.nature,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    object.type,
-                                    style: const TextStyle(color: Colors.blueGrey),
-                                  ),
-                                  Text(
-                                    '${object.station_name} - ${object.date.day.toString().padLeft(2, '0')}/${object.date.month.toString().padLeft(2, '0')}/${object.date.year} à ${object.date.hour.toString().padLeft(2, '0')}:${object.date.minute.toString().padLeft(2, '0')}',
-                                    style: const TextStyle(color: Colors.grey),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          return ObjectTile(nature: object.nature, type: object.type, station: object.station_name, date: object.date);
                         },
                       ),
               ),
