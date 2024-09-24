@@ -79,6 +79,8 @@ class _HomePageState extends State<HomePage> {
   /// The date of the last visit.
   DateTime lastVisit = DateTime.now().subtract(const Duration(days: 30)); // Par défaut, la dernière visite est la date actuelle moins 1 mois
 
+  List<FoundObject> objects = [];
+
   /// Initializes the state of the [HomePage] widget.
   ///
   /// This method loads the last visit date, fetches search results, and saves the current visit date.
@@ -91,7 +93,7 @@ class _HomePageState extends State<HomePage> {
   /// Initialise the HomePage.
   Future<void> _initialize() async {
     await _loadLastVisit();
-    final objects = await _fetchSearchResults(lastVisit);
+    objects = await _fetchSearchResults(lastVisit);
     Provider.of<ObjectsProvider>(context, listen: false).setObjects(objects);
     await _saveLastVisit();
   }
@@ -129,9 +131,7 @@ class _HomePageState extends State<HomePage> {
   /// This method returns a [Scaffold] widget that contains the home page content.
   @override
   Widget build(BuildContext context) {
-    final objectsProvider = Provider.of<ObjectsProvider>(context);
-    final List<FoundObject> objects = objectsProvider.objects;
-
+  
     return Scaffold(
       backgroundColor: const Color(0xFF0B1320), // Couleur de fond
       body: SafeArea(
