@@ -1,5 +1,10 @@
+/// A widget that displays information about a found object.
+///
+/// This widget provides an icon, title, and subtitle that describe the object's nature, type, station, and date.
+/// It uses a map of object types to icons to display the appropriate icon for each object type.
 import 'package:flutter/material.dart';
 
+/// A map of object types to icons.
 final Map<String, IconData> _typeIcons = {
   "Appareils électroniques, informatiques, appareils photo": Icons.computer,
   "Articles d'enfants, de puériculture": Icons.child_care,
@@ -19,21 +24,35 @@ final Map<String, IconData> _typeIcons = {
   "Vêtements, chaussures": Icons.checkroom
 };
 
+/// A widget that displays information about a found object.
 class ObjectTile extends StatelessWidget {
+   /// The nature of the object.
   final String nature;
+
+  /// The type of the object.
   final String type;
+
+  /// The station where the object was found.
   final String station;
+
+  /// The date when the object was found.
   final DateTime date;
 
-  ObjectTile({
+  /// Constructs a new instance of the [ObjectTile] widget.
+  const ObjectTile({
+    super.key, 
     required this.nature,
     required this.type,
     required this.station,
     required this.date,
   });
 
+  /// Returns the icon for the object type.
   IconData get icon => _typeIcons[type] ?? Icons.help;
   
+  /// Builds the [ObjectTile] widget.
+  ///
+  /// This method returns a [Card] widget that contains the object information.
   @override
   Widget build(BuildContext context) {
     return Card(

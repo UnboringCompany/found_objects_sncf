@@ -14,6 +14,26 @@ The app uses a **Provider** package to manage the state of the app. The app has 
 
 The app also uses a **FoundObject** class to represent a found object. The FoundObject class has properties such as nature, type, station name, date, and an icon corresponding to the type.
 
+We also used an enumeration name **SortOrder** to choose to order the results by ascending or descending date.
+
+## Features
+
+### Objects Found Since Last Visit
+
+On the landing page, the objects found since the last visit are displayed. The app uses the **SharedPreferences** class to store the last visit date for the search of found objects. On the first visit, the app displays the objects found in the last month. Next, the app displays the objects found since the last visit.
+
+The date is loaded at the start of the app, and updated when the API call is done. This ensures that we don't update the last visit date before calling the API.
+
+If no objects are found since the last visit, the app displays a message saying "No objects found since your last visit."
+
+### Search for Objects
+
+The app allows users to search for lost objects based on various filters such as date, station, and object type. The search results are displayed in a list view with the object's nature, type, station name, and date.
+
+If the user doesn't select any filter, the app displays all the found objects. Additionally, if one of the filters is empty, the app displays all the found objects that match the other filters.
+
+The app also displays a message if no objects are found based on the search filters.
+
 ## Date
 
 The app was last updated on 24/09/2024.

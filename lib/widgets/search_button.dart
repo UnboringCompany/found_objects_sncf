@@ -1,10 +1,19 @@
+/// A widget that displays a search button.
+///
+/// This widget provides a button that navigates to a search page when pressed.
+/// The button has a custom style that includes a text label and an icon.
 import 'package:flutter/material.dart';
 
 class SearchButton extends StatelessWidget {
+  /// Called when the button is pressed.
   final VoidCallback onPressed;
 
+  /// Constructs a new instance of the [SearchButton] widget.
   const SearchButton({super.key, required this.onPressed});
 
+  /// Builds the [SearchButton] widget.
+  ///
+  /// This method returns a [Row] widget that contains the search button.
   @override
   Widget build(BuildContext context) {
     return Row(

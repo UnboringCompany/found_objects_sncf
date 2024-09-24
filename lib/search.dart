@@ -1,4 +1,11 @@
+/// A widget that allows users to search for lost objects.
+///
+/// This widget provides text fields for entering the station name and object type, as well as date pickers for selecting the start and end dates.
+/// It uses the [ObjectsProvider] and [StationProvider] classes to fetch objects and stations, respectively.
+/// It also uses the [ObjectTile] widget to display search results.
+library;
 import 'package:flutter/material.dart';
+import 'package:myapp/enums/SortOrder.dart';
 import 'package:myapp/providers/ObjectsProvider.dart';
 import 'package:myapp/widgets/object_tile.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +14,7 @@ import 'widgets/date_picker_row.dart';
 import 'providers/StationProvider.dart';
 
 class SearchPage extends StatefulWidget {
+  /// Constructs a new instance of the [SearchPage] widget.
   const SearchPage({super.key});
 
   @override
@@ -46,6 +54,9 @@ class _SearchPageState extends State<SearchPage> {
   List<FoundObject> _searchResults = [];
   bool _hasSearchResults = false;
 
+  /// Initializes the state of the [SearchPage] widget.
+  ///
+  /// This method fetches stations from the [StationProvider] and adds listeners to the text fields and focus nodes.
   @override
   void initState() {
     super.initState();
@@ -59,6 +70,9 @@ class _SearchPageState extends State<SearchPage> {
     _gareFocusNode.addListener(_onFocusChanged);
   }
 
+  /// Disposes of the state of the [SearchPage] widget.
+  ///
+  /// This method removes listeners from the text fields and focus nodes and disposes of them.
   @override
   void dispose() {
     _typeController.removeListener(_onTypeChanged);
@@ -74,6 +88,7 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
+  /// Updates the list of object types based on the text entered in the object type text field.
   void _onTypeChanged() {
     setState(() {
       _typeResults = _typeIcons.keys
@@ -82,6 +97,7 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
+  /// Updates the list of stations based on the text entered in the station text field.
   void _onGareChanged() {
     final stationProvider = Provider.of<StationProvider>(context, listen: false);
     final stations = stationProvider.getStationNames();
@@ -92,7 +108,8 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
-  void _onTypeFocusChanged() {
+  /// Clears the list of stations when the station text field loses focus.
+  void _onGareFocusChanged() {
     if (!_typeFocusNode.hasFocus) {
       setState(() {
         _typeResults.clear();
@@ -100,7 +117,8 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 
-  void _onGareFocusChanged() {
+  /// Clears the list of search results when either the object type or station text field gains focus.
+  void _onFocusChanged() {
     if (!_gareFocusNode.hasFocus) {
       setState(() {
         _gareResults.clear();
@@ -108,7 +126,8 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 
-  void _onFocusChanged() {
+  /// Clears the list of object types when the object type text field loses focus.
+  void _onTypeFocusChanged() {
     if (_typeFocusNode.hasFocus || _gareFocusNode.hasFocus) {
       setState(() {
         _searchResults.clear();
@@ -117,6 +136,7 @@ class _SearchPageState extends State<SearchPage> {
     }
   }
 
+  /// Updates the object type text field with the selected object type and clears the list of object types.
   void _onTypeSelected(String type) {
     setState(() {
       _typeController.text = type;
@@ -124,6 +144,7 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
+  /// Updates the station text field with the selected station and clears the list of stations.
   void _onGareSelected(String gare) {
     setState(() {
       _gareController.text = gare;
@@ -131,23 +152,29 @@ class _SearchPageState extends State<SearchPage> {
     });
   }
 
+  /// Updates the start date based on the selected date in the start date picker.
   void _onStartDateChanged(DateTime? date) {
     setState(() {
       _startDate = date;
     });
   }
 
+  /// Updates the end date based on the selected date in the end date picker.
   void _onEndDateChanged(DateTime? date) {
     setState(() {
       _endDate = date;
     });
   }
 
+  /// Unfocuses both the object type and station text fields.
   void _unfocusAll() {
     _typeFocusNode.unfocus();
     _gareFocusNode.unfocus();
   }
 
+  /// Builds the [SearchPage] widget.
+  ///
+  /// This method returns a [Scaffold] widget that contains the search form and the search results.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -274,6 +301,7 @@ class _SearchPageState extends State<SearchPage> {
                     typeObject: filters['type'],
                     startDate: filters['date_min'],
                     endDate: filters['date_max'],
+                    sortOrder: SortOrder.desc,
                   );
                   // ignore: use_build_context_synchronously
                   Provider.of<ObjectsProvider>(context, listen: false).setObjects(objects);

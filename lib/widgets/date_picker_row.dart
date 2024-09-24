@@ -1,9 +1,17 @@
+/// A widget that displays two date pickers for selecting a start and end date.
+///
+/// This widget provides text fields for displaying the selected start and end dates, and uses the [showDatePicker] function to display a date picker dialog when the text fields are tapped.
+/// It also allows customizing the theme of the date picker dialog.
 import 'package:flutter/material.dart';
 
 class DatePickerRow extends StatefulWidget {
+  /// Called when the start date is changed.
   final void Function(DateTime? date) onStartDateChanged;
+
+  /// Called when the end date is changed.
   final void Function(DateTime? date) onEndDateChanged;
 
+  /// Constructs a new instance of the [DatePickerRow] widget.
   const DatePickerRow({
     super.key,
     required this.onStartDateChanged,
@@ -11,13 +19,22 @@ class DatePickerRow extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _DatePickerRowState createState() => _DatePickerRowState();
 }
 
 class _DatePickerRowState extends State<DatePickerRow> {
+  /// The text editing controller for the start date text field.   
   final TextEditingController _startDateController = TextEditingController();
+
+  /// The text editing controller for the end date text field.
   final TextEditingController _endDateController = TextEditingController();
 
+  /// Displays a date picker dialog and updates the specified text field with the selected date.
+  ///
+  /// [context] The build context.
+  /// [controller] The text editing controller for the text field to update.
+  /// [onDateChanged] The callback function to call when the date is changed
   Future<void> _selectDate(BuildContext context, TextEditingController controller, void Function(DateTime? date) onDateChanged) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -48,6 +65,9 @@ class _DatePickerRowState extends State<DatePickerRow> {
     }
   }
 
+  // Builds the [DatePickerRow] widget.
+  ///
+  /// This method returns a [Row] widget that contains the start and end date text fields.
   @override
   Widget build(BuildContext context) {
     return Row(

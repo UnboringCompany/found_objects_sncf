@@ -1,5 +1,10 @@
+/// The main entry point for the application.
+///
+/// This function initializes the Flutter binding, sets the preferred orientation to portrait, and runs the [MyApp] widget.
+library;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:myapp/enums/SortOrder.dart';
 import 'package:myapp/providers/StationProvider.dart';
 import 'package:myapp/models/FoundObject.dart';
 import 'package:myapp/widgets/object_tile.dart';
@@ -13,6 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // Force l'orientation en mode portrait
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(
             MultiProvider(
@@ -20,12 +26,19 @@ void main() {
                 ChangeNotifierProvider(create: (_) => StationProvider()),
                 ChangeNotifierProvider(create: (_) => ObjectsProvider()),
               ],
-              child: MyApp(),
+              child: const MyApp(),
             ),
           ));
 }
 
+
+/// The root widget of the application.
+///
+/// This widget sets the theme and localization delegates for the application, and specifies the home page as the [HomePage] widget.
 class MyApp extends StatelessWidget {
+  /// Constructs a new instance of the [MyApp] widget.
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,7 +52,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: const HomePage(),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
       ],
@@ -50,21 +63,32 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/// The home page of the application.
+///
+/// This widget displays the last found objects since the last visit, and provides a search button that navigates to the [SearchPage] widget.
 class HomePage extends StatefulWidget {
+  /// Constructs a new instance of the [HomePage] widget.
+  const HomePage({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  
+  /// The date of the last visit.
   DateTime lastVisit = DateTime.now().subtract(const Duration(days: 30)); // Par défaut, la dernière visite est la date actuelle moins 1 mois
 
+  /// Initializes the state of the [HomePage] widget.
+  ///
+  /// This method loads the last visit date, fetches search results, and saves the current visit date.
   @override
   void initState() {
     super.initState();
     _initialize();
   }
 
+  /// Initialise the HomePage.
   Future<void> _initialize() async {
     await _loadLastVisit();
     final objects = await _fetchSearchResults(lastVisit);
@@ -72,41 +96,44 @@ class _HomePageState extends State<HomePage> {
     await _saveLastVisit();
   }
 
+  /// Loads the last visit date from shared preferences.
+  ///
+  /// If no last visit date is found, the default value is used.
   Future<void> _loadLastVisit() async {
     final prefs = await SharedPreferences.getInstance();
     final lastVisitString = prefs.getString('lastVisit');
-    if (lastVisitString != null) {
+    if (lastVisitString != null && lastVisitString != '') {
       setState(() {
         lastVisit = DateTime.parse(lastVisitString);
       });
     }
   }
 
+  /// Saves the current visit date to shared preferences.
+  ///
+  /// This method is called every time the home page is displayed.
   Future<void> _saveLastVisit() async {
     final prefs = await SharedPreferences.getInstance();
     final now = DateTime.now();
     await prefs.setString('lastVisit', now.toIso8601String());
-    setState(() {
-      lastVisit = now;
-    });
   }
 
+  /// Fetches search results from the API.
   Future<List<FoundObject>> _fetchSearchResults(DateTime? lastVisit) async {
-    final objects = await Provider.of<ObjectsProvider>(context, listen: false)
-        .fetchObjectsWithFilters(startDate: lastVisit);
-
-    objects.sort((a, b) => a.date.compareTo(b.date));
-
-    return objects;
+    return await Provider.of<ObjectsProvider>(context, listen: false)
+        .fetchObjectsWithFilters(startDate: lastVisit, sortOrder: SortOrder.asc);
   }
 
+  /// Builds the [HomePage] widget.
+  ///
+  /// This method returns a [Scaffold] widget that contains the home page content.
   @override
   Widget build(BuildContext context) {
     final objectsProvider = Provider.of<ObjectsProvider>(context);
     final List<FoundObject> objects = objectsProvider.objects;
 
     return Scaffold(
-      backgroundColor: Color(0xFF0B1320), // Couleur de fond
+      backgroundColor: const Color(0xFF0B1320), // Couleur de fond
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -140,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SearchPage(),
+                      builder: (context) => const SearchPage(),
                     ),
                   );
                 },
@@ -157,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text('Depuis le ${lastVisit?.day.toString().padLeft(2, '0')}/${lastVisit?.month.toString().padLeft(2, '0')}/${lastVisit?.year}',
+              Text('Depuis le ${lastVisit.day.toString().padLeft(2, '0')}/${lastVisit.month.toString().padLeft(2, '0')}/${lastVisit.year} à ${lastVisit.hour.toString().padLeft(2, '0')}h${lastVisit.minute.toString().padLeft(2, '0')}',
               style:
                 const TextStyle(
                   color: Colors.blueGrey,
@@ -167,7 +194,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 16),
 
-              // GridView des objets trouvés
+              // Liste des objets trouvés
               Expanded(
                 child: objects.isEmpty
                     ? const Center(
